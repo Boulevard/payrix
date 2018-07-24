@@ -1,0 +1,33 @@
+{
+    "response": {
+        "data": [
+            {
+                "account": {
+                    "method": 8,
+                    "number": "2345",
+                    "routing": "3924",
+                    "bin": null,
+                    "payment": null
+                },
+                "id": "t1_act_5b2de07d80b604f68ac9723",
+                "created": "2018-06-23 01:54:05.5333",
+                "modified": "2018-06-23 01:54:05.5333",
+                "creator": "t1_log_5b2011973fa59491784706b",
+                "modifier": "t1_log_5b2011973fa59491784706b",
+                "entity": "t1_ent_5b2ddeb87d9817adaf87597",
+                "token": "fe8783ede20df67ac1fa4e569f22eee7",
+                "name": "",
+                "description": "",
+                "primary": "1",
+                "status": 0,
+                "currency": "USD",
+                "inactive": 0,
+                "frozen": 0
+            }
+        ],
+        "details": {
+            "requestId": 1
+        },
+        "errors": []
+    }
+}

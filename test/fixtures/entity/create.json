@@ -1,0 +1,49 @@
+{
+    "response": {
+        "data": [
+            {
+                "id": "t1_ent_5b2ddeb87d9817adaf87597",
+                "created": "2018-06-23 01:46:32.5153",
+                "modified": "2018-06-23 01:46:32.5153",
+                "creator": "t1_log_5b2011973fa59491784706b",
+                "modifier": "t1_log_5b2011973fa59491784706b",
+                "ipCreated": "76.90.143.40",
+                "ipModified": "76.90.143.40",
+                "clientIp": null,
+                "login": "t1_log_5b2011973fa59491784706b",
+                "parameter": null,
+                "type": "1",
+                "name": "Smith Company, LLC",
+                "address1": "123 North 12 St",
+                "address2": null,
+                "city": "Miami",
+                "state": "FL",
+                "zip": "33024",
+                "country": "USA",
+                "timezone": "est",
+                "phone": "8055555555",
+                "fax": null,
+                "email": "support@example.com",
+                "website": "http://www.example.com",
+                "ein": "6789",
+                "tcVersion": null,
+                "tcDate": null,
+                "tcIp": null,
+                "tcAcceptDate": null,
+                "tcAcceptIp": null,
+                "currency": "USD",
+                "custom": "",
+                "inactive": 0,
+                "frozen": 0,
+                "tinStatus": 0,
+                "reserved": 0,
+                "checkStage": "createEntity",
+                "public": "0"
+            }
+        ],
+        "details": {
+            "requestId": 1
+        },
+        "errors": []
+    }
+}
