@@ -19,6 +19,7 @@ defmodule Payrix.Resource do
           |> append_search(options)
           |> authorize_request(options)
           |> send_json_request
+          |> Payrix.Resource.parse_response
         end
       end
 
@@ -27,7 +28,7 @@ defmodule Payrix.Resource do
           request(:get, "/#{@resource}/#{id}")
           |> authorize_request(options)
           |> send_json_request
-          |> Payrix.Resource.unwrap_singular_data()
+          |> Payrix.Resource.parse_response
         end
       end
 
@@ -36,7 +37,7 @@ defmodule Payrix.Resource do
           request(:put, "/#{@resource}/#{id}", params)
           |> authorize_request(options)
           |> send_json_request
-          |> Payrix.Resource.unwrap_singular_data()
+          |> Payrix.Resource.parse_response
         end
       end
 
@@ -45,7 +46,7 @@ defmodule Payrix.Resource do
           request(:post, "/#{@resource}", params)
           |> authorize_request(options)
           |> send_json_request
-          |> Payrix.Resource.unwrap_singular_data()
+          |> Payrix.Resource.parse_response
         end
       end
 
@@ -54,15 +55,21 @@ defmodule Payrix.Resource do
           request(:delete, "/#{@resource}/#{id}")
           |> authorize_request(options)
           |> send_json_request
-          |> Payrix.Resource.unwrap_singular_data()
+          |> Payrix.Resource.parse_response
         end
       end
     end
   end
 
-  def unwrap_singular_data({:ok, %{"response" => %{"data" => [data]}}}),
-    do: {:ok, data}
+  def parse_response({:ok, %{"response" => json}}) do
+    response = %Payrix.Response{
+      data: json["data"],
+      errors: json["errors"],
+      details: json["details"]
+    }
 
-  def unwrap_singular_data(response),
-    do: response
+    {:ok, response}
+  end
+
+  def parse_response(other), do: other
 end
