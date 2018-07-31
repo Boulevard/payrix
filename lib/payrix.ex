@@ -2,14 +2,19 @@ defmodule Payrix do
   @moduledoc false
 
   @backend_config :backend
-  @use_production_api_config :use_production_api
+  @api_host_config :api_host
   @api_key_config :api_key
 
-  def base_url do
-    if get_env(@use_production_api_config, false) do
-      "https://api.splashpayments.com"
-    else
-      "https://test-api.splashpayments.com"
+  def api_host do
+    case get_env(@api_host_config) do
+      api_host when is_binary(api_host) ->
+        api_host
+
+      nil ->
+        raise_missing(@api_host_config)
+
+      other ->
+        raise_invalid(@api_host_config, other)
     end
   end
 

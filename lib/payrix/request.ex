@@ -4,6 +4,7 @@ defmodule Payrix.Request do
   @enforce_keys [
     :method,
     :url,
+    :query,
     :body,
     :headers,
     :options
@@ -14,6 +15,7 @@ defmodule Payrix.Request do
     method:   atom,
     url:      binary,
     body:     binary,
+    query:    Map.t,
     headers:  [{binary, binary}],
     options:  Keyword.t
   }

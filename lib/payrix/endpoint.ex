@@ -6,7 +6,7 @@ defmodule Payrix.Endpoint do
   alias Payrix.Token
   alias Payrix.Query
 
-  @default_using_options [base_url: ""]
+  @default_using_options [api_host: ""]
 
   defmacro __using__(using_options \\ []) do
     merged_using_options = Keyword.merge(@default_using_options, using_options)
@@ -14,18 +14,21 @@ defmodule Payrix.Endpoint do
     quote do
       import unquote(__MODULE__),
         only: [
-          append_search: 2,
+          apply_search: 2,
+          apply_expand: 2,
+          apply_pagination: 2,
           authorize_request: 2,
           send_request: 1
         ]
 
       @doc false
       def request(method, url, body \\ nil, headers \\ nil, options \\ nil) do
-        base_url = unquote(merged_using_options)[:base_url]
+        api_host = unquote(merged_using_options)[:api_host]
 
         %Request{
           method: method,
-          url: base_url <> url,
+          url: api_host <> url,
+          query: %{},
           body: body || "",
           headers: headers || [],
           options: options || []
@@ -34,7 +37,26 @@ defmodule Payrix.Endpoint do
     end
   end
 
-  def append_search(request = %Request{headers: headers}, options) do
+  def apply_expand(request = %Request{query: query}, options) do
+    new_query =
+      Keyword.take(options, [:expand])
+      |> Enum.into(%{})
+
+    %Request{request | query: Map.merge(query, new_query)}
+  end
+
+  def apply_pagination(request = %Request{query: query}, options) do
+    new_query = %{
+      page: %{
+        number: Keyword.get(options, :page),
+        limit: Keyword.get(options, :limit)
+      }
+    }
+
+    %Request{request | query: Map.merge(query, new_query)}
+  end
+
+  def apply_search(request = %Request{headers: headers}, options) do
     with {:ok, search} <- Keyword.fetch(options, :search),
          encoded_search <- Query.encode(search),
          search_header <- {"SEARCH", encoded_search} do

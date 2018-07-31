@@ -1,7 +1,7 @@
 defmodule Payrix.EndpointTest do
   use ExUnit.Case, async: false
   use Payrix.APICase
-  use Payrix.Endpoint, base_url: "http://localhost/"
+  use Payrix.Endpoint, api_host: "http://localhost/"
 
   alias Payrix.Token
   alias Payrix.Request
