@@ -19,7 +19,13 @@ defmodule Payrix.Backend.HTTPoison do
       url,
       request.body,
       request.headers,
-      request.options
+      apply_default_options(request.options)
     )
+  end
+
+  defp apply_default_options(options) do
+    options
+    |> Keyword.put_new(:timeout, 5000)
+    |> Keyword.put_new(:recv_timeout, 20000)
   end
 end
