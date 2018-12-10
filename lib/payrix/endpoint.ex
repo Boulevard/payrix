@@ -3,7 +3,6 @@ defmodule Payrix.Endpoint do
 
   alias HTTPoison.Response
   alias Payrix.Request
-  alias Payrix.Token
   alias Payrix.Query
 
   @default_using_options [api_host: ""]
@@ -66,7 +65,7 @@ defmodule Payrix.Endpoint do
     end
   end
 
-  def authorize_request(request = %Request{headers: headers}, options) do
+  def authorize_request(request = %Request{headers: headers}, _options) do
     auth_header = {"APIKEY", Payrix.api_key()}
     %Request{request | headers: [auth_header | headers]}
   end

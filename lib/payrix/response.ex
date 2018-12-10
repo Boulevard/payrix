@@ -8,10 +8,10 @@ defmodule Payrix.Response do
   ]
 
   @type t :: %__MODULE__{
-    data: [any],
-    errors: [any],
-    details: Map.t
-  }
+          data: [any],
+          errors: [any],
+          details: Map.t()
+        }
 
   defstruct @enforce_keys
 end

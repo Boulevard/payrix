@@ -7,7 +7,7 @@ defmodule Payrix.Resource do
     resource = Keyword.fetch!(options, :resource)
 
     quote bind_quoted: [import_functions: import_functions, resource: resource] do
-      use Payrix.Endpoint, api_host: Payrix.api_host
+      use Payrix.Endpoint, api_host: Payrix.api_host()
       use Payrix.Endpoint.JSON
 
       alias Payrix.{
@@ -23,7 +23,7 @@ defmodule Payrix.Resource do
           |> apply_expand(options)
           |> authorize_request(options)
           |> send_json_request
-          |> Payrix.Resource.parse_response
+          |> Payrix.Resource.parse_response()
         end
 
         def stream_query(options \\ []) do
@@ -41,7 +41,7 @@ defmodule Payrix.Resource do
           |> apply_expand(options)
           |> authorize_request(options)
           |> send_json_request
-          |> Payrix.Resource.parse_response
+          |> Payrix.Resource.parse_response()
         end
       end
 
@@ -51,7 +51,7 @@ defmodule Payrix.Resource do
           |> apply_expand(options)
           |> authorize_request(options)
           |> send_json_request
-          |> Payrix.Resource.parse_response
+          |> Payrix.Resource.parse_response()
         end
       end
 
@@ -61,7 +61,7 @@ defmodule Payrix.Resource do
           |> apply_expand(options)
           |> authorize_request(options)
           |> send_json_request
-          |> Payrix.Resource.parse_response
+          |> Payrix.Resource.parse_response()
         end
       end
 
@@ -71,7 +71,7 @@ defmodule Payrix.Resource do
           |> apply_expand(options)
           |> authorize_request(options)
           |> send_json_request
-          |> Payrix.Resource.parse_response
+          |> Payrix.Resource.parse_response()
         end
       end
     end
