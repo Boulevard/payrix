@@ -2,6 +2,7 @@ defmodule Payrix do
   @moduledoc false
 
   @backend_config :backend
+  @httpoison_timeout_config :httpoison_timeout
   @api_host_config :api_host
   @api_key_config :api_key
 
@@ -41,6 +42,22 @@ defmodule Payrix do
 
       other ->
         raise_invalid(@backend_config, other)
+    end
+  end
+
+  def httpoison_timeout() do
+    case get_env(@httpoison_timeout_config, 20_000) do
+      timeout when is_binary(timeout) ->
+        String.to_integer(timeout)
+
+      timeout when is_number(timeout) ->
+        timeout
+
+      nil ->
+        raise_missing(@httpoison_timeout_config)
+
+      other ->
+        raise_invalid(@httpoison_timeout_config, other)
     end
   end
 

@@ -8,11 +8,12 @@ defmodule Payrix.Backend.HTTPoison do
   }
 
   def request(request = %Request{}) do
-    url = if Map.size(request.query) > 0 do
-      "#{request.url}?#{Query.encode(request.query)}"
-    else
-      request.url
-    end
+    url =
+      if Map.size(request.query) > 0 do
+        "#{request.url}?#{Query.encode(request.query)}"
+      else
+        request.url
+      end
 
     HTTPoison.request(
       request.method,
@@ -25,7 +26,7 @@ defmodule Payrix.Backend.HTTPoison do
 
   defp apply_default_options(options) do
     options
-    |> Keyword.put_new(:timeout, 5000)
-    |> Keyword.put_new(:recv_timeout, 20000)
+    |> Keyword.put_new(:timeout, Payrix.httpoison_timeout())
+    |> Keyword.put_new(:recv_timeout, Payrix.httpoison_timeout())
   end
 end
