@@ -21,6 +21,7 @@ defmodule Payrix.Resource do
           request(:get, "/#{@resource}")
           |> apply_search(options)
           |> apply_expand(options)
+          |> apply_pagination(options)
           |> authorize_request(options)
           |> send_json_request
           |> Payrix.Resource.parse_response()
