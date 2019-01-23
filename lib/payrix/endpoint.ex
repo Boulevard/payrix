@@ -15,13 +15,14 @@ defmodule Payrix.Endpoint do
         only: [
           apply_search: 2,
           apply_expand: 2,
+          apply_httpoison_options: 2,
           apply_pagination: 2,
           authorize_request: 2,
           send_request: 1
         ]
 
       @doc false
-      def request(method, url, body \\ nil, headers \\ nil, options \\ nil) do
+      def request(method, url, body \\ nil, headers \\ nil, options \\ nil, httpoison_options \\ nil) do
         api_host = unquote(merged_using_options)[:api_host]
 
         %Request{
@@ -30,7 +31,8 @@ defmodule Payrix.Endpoint do
           query: %{},
           body: body || "",
           headers: headers || [],
-          options: options || []
+          options: options || [],
+          httpoison_options: httpoison_options || []
         }
       end
     end
@@ -53,6 +55,14 @@ defmodule Payrix.Endpoint do
     }
 
     %Request{request | query: Map.merge(query, new_query)}
+  end
+
+  def apply_httpoison_options(request = %Request{}, options) do
+    with {:ok, httpoison_options} <- Keyword.fetch(options, :httpoison_options) do
+      %Request{request | httpoison_options: httpoison_options}
+    else
+      _ -> request
+    end
   end
 
   def apply_search(request = %Request{headers: headers}, options) do

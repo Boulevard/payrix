@@ -7,6 +7,7 @@ defmodule Payrix.Request do
     :query,
     :body,
     :headers,
+    :httpoison_options,
     :options
   ]
 
@@ -17,6 +18,7 @@ defmodule Payrix.Request do
           body: binary,
           query: Map.t(),
           headers: [{binary, binary}],
+          httpoison_options: Keyword.t(),
           options: Keyword.t()
         }
 

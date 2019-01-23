@@ -21,6 +21,7 @@ defmodule Payrix.Resource do
           request(:get, "/#{@resource}")
           |> apply_search(options)
           |> apply_expand(options)
+          |> apply_httpoison_options(options)
           |> apply_pagination(options)
           |> authorize_request(options)
           |> send_json_request
@@ -31,6 +32,7 @@ defmodule Payrix.Resource do
           request(:get, "/#{@resource}")
           |> apply_search(options)
           |> apply_expand(options)
+          |> apply_httpoison_options(options)
           |> authorize_request(options)
           |> Payrix.Stream.from_request(options, &send_json_request/1)
         end
@@ -40,6 +42,7 @@ defmodule Payrix.Resource do
         def get(id, options \\ []) when is_binary(id) do
           request(:get, "/#{@resource}/#{id}")
           |> apply_expand(options)
+          |> apply_httpoison_options(options)
           |> authorize_request(options)
           |> send_json_request
           |> Payrix.Resource.parse_response()
@@ -50,6 +53,7 @@ defmodule Payrix.Resource do
         def update(id, params, options \\ []) do
           request(:put, "/#{@resource}/#{id}", params)
           |> apply_expand(options)
+          |> apply_httpoison_options(options)
           |> authorize_request(options)
           |> send_json_request
           |> Payrix.Resource.parse_response()
@@ -60,6 +64,7 @@ defmodule Payrix.Resource do
         def create(params, options \\ []) do
           request(:post, "/#{@resource}", params)
           |> apply_expand(options)
+          |> apply_httpoison_options(options)
           |> authorize_request(options)
           |> send_json_request
           |> Payrix.Resource.parse_response()
@@ -70,6 +75,7 @@ defmodule Payrix.Resource do
         def delete(id, options \\ []) do
           request(:delete, "/#{@resource}/#{id}")
           |> apply_expand(options)
+          |> apply_httpoison_options(options)
           |> authorize_request(options)
           |> send_json_request
           |> Payrix.Resource.parse_response()
