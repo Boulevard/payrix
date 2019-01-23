@@ -35,8 +35,10 @@ defmodule Payrix.Backend.HTTPoison do
     |> Keyword.put_new(:recv_timeout, Payrix.httpoison_timeout())
   end
 
-  defp merge_httpoison_options(options, %{httpoison_options: httpoison_options}) when is_list(httpoison_options) do
+  defp merge_httpoison_options(options, %{httpoison_options: httpoison_options})
+       when is_list(httpoison_options) do
     Keyword.merge(options, httpoison_options)
   end
+
   defp merge_httpoison_options(options, _), do: options
 end
