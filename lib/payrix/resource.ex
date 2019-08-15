@@ -20,6 +20,7 @@ defmodule Payrix.Resource do
         def query(options \\ []) do
           request(:get, "/#{@resource}")
           |> apply_search(options)
+          |> apply_totals(options)
           |> apply_expand(options)
           |> apply_httpoison_options(options)
           |> apply_pagination(options)
