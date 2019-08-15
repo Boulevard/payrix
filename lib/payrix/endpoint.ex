@@ -14,6 +14,7 @@ defmodule Payrix.Endpoint do
       import unquote(__MODULE__),
         only: [
           apply_search: 2,
+          apply_totals: 2,
           apply_expand: 2,
           apply_httpoison_options: 2,
           apply_pagination: 2,
@@ -70,6 +71,16 @@ defmodule Payrix.Endpoint do
          encoded_search <- Query.encode(search),
          search_header <- {"SEARCH", encoded_search} do
       %Request{request | headers: [search_header | headers]}
+    else
+      _ -> request
+    end
+  end
+
+  def apply_totals(request = %Request{headers: headers}, options) do
+    with {:ok, totals} <- Keyword.fetch(options, :totals),
+        #  encoded_search <- Query.encode(search),
+         total_header <- {"TOTALS", totals} do
+      %Request{request | headers: [total_header | headers]}
     else
       _ -> request
     end
