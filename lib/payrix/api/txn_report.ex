@@ -1,4 +1,4 @@
-defmodule Payrix.API.TxnReports do
+defmodule Payrix.API.TxnReport do
   @moduledoc false
 
   use Payrix.Resource,
